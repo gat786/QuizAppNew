@@ -104,12 +104,12 @@ Future<Map<String,String>> getUserDetails() async {
 
 Future<bool> doesUserExist() async {
   SharedPreferences prefs=await SharedPreferences.getInstance();
-  if (prefs.getString("username").isNotEmpty)
+  if (prefs.getString("username")==null)
   {
-    return true;
+    return false;
   }
   else
   {
-    return false;
+    return true;
   }
 }

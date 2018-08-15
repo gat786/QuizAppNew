@@ -6,6 +6,10 @@ import 'package:quiz/util/shared_preference.dart';
 
 var isLoading=false;
 class AskName extends StatefulWidget{
+
+  AskName(){
+    isLoading=false;
+  }
   @override
     State<StatefulWidget> createState() {
       // TODO: implement createState
@@ -88,7 +92,9 @@ class AskNameState extends State<AskName>{
                   },
                 ),
 
-                new Container(
+                Builder(
+                  builder: (BuildContext context){
+                    return new Container(
                   margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 10.0),
                   child: new RaisedButton(
                     padding: EdgeInsets.all(10.0),
@@ -101,15 +107,19 @@ class AskNameState extends State<AskName>{
                         if (result=="true"){
                           saveUserRegistrationDetails(_username.text, _password.text, _email.text);
                           Scaffold.of(context).showSnackBar(SnackBar(content: new Text("Registeration Successfull Try Login"),));
+                          this.setState((){  isLoading=false;});
                         }
                         else if (result=="username"){
                           Scaffold.of(context).showSnackBar(SnackBar(content: new Text("Username is Taken"),));
+                          this.setState((){  isLoading=false;});
                         }
                         else if(result=="email"){
                           Scaffold.of(context).showSnackBar(SnackBar(content: new Text("Email is Already registered"),));
+                          this.setState((){  isLoading=false;});
                         }
                         else{
                           Scaffold.of(context).showSnackBar(SnackBar(content: new Text("Registeration Failed"),));
+                          this.setState((){  isLoading=false;});
                         }
                       });
                       
@@ -119,55 +129,61 @@ class AskNameState extends State<AskName>{
                     }
                     },
                   ),
-                )
+                );
+                  },
+                ),
+
+                
               ],
             ),
           );
 
 
-      return new Stack(
-        children: <Widget>[
-          
-          new Container(
-            width: double.infinity,
-            child: new Material(
-            color: Color.fromRGBO(236, 240, 241, 1.0),
-            child: new Padding(
-              padding: EdgeInsets.all(0.0),
-              child:new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-              
-                children: <Widget>[
-                new Card(
+      return Scaffold(
+          body: new Stack(
+          children: <Widget>[
+            
+            new Container(
+              width: double.infinity,
+              child: new Material(
+              color: Color.fromRGBO(236, 240, 241, 1.0),
+              child: new Padding(
+                padding: EdgeInsets.all(0.0),
+                child:new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                
+                  children: <Widget>[
+                  new Card(
 
-                  elevation: 10.0,
-                  
-                  child:  new Container(
+                    elevation: 10.0,
                     
-                    width: 350.0,
-                    height: 400.0,
-                    color: Color.fromRGBO(26, 188, 156, 1.0),
-                    child: new Padding(
-                      padding: EdgeInsets.fromLTRB(30.0, 70.0, 30.0, 70.0),
-                      child: formToFill
+                    child:  new Container(
+                      
+                      width: 350.0,
+                      height: 350.0,
+                      color: Color.fromRGBO(26, 188, 156, 1.0),
+                      child: new Padding(
+                        padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 30.0),
+                        child: formToFill
+                      ),
                     ),
                   ),
-                ),
 
-                new MaterialButton(
-                    child: new Text("Click here to Login",style: new TextStyle(color:Colors.blueAccent),),
-                    onPressed: (){
-                      Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context)=>new LoginPage()));
-                    },
-                  )
-                ],
+                  new MaterialButton(
+                      child: new Text("Click here to Login",style: new TextStyle(color:Colors.blueAccent),),
+                      onPressed: (){
+                        Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context)=>new LoginPage()));
+                      },
+                    )
+                  ],
+                )
               )
-            )
-          ),
-          ),
+            ),
+            ),
 
-          (isLoading)?IsLoading():new Container()
-        ],
+            (isLoading)?IsLoading():new Container()
+          ],
+        ),
       );
 
       

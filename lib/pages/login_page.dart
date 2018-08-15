@@ -101,9 +101,16 @@ class LoginPageState extends State<LoginPage> {
               });
             }
             else{
-              isLoading=false;
+              this.setState((){
+                isLoading=false;
+              });
             }
           });
+        });
+      }
+      else{
+        this.setState((){
+          isLoading=false;
         });
       }
     });
@@ -209,55 +216,57 @@ class LoginPageState extends State<LoginPage> {
     );
 
     
-        return Stack(
-          children: <Widget>[
-            new Container(
-              width: double.infinity,
-              child: new Material(
-                  color: Color.fromRGBO(236, 240, 241, 1.0),
-                  child: new Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      new Container(
-                          padding: EdgeInsets.all(0.0),
-                          child: new Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              new Card(
-                                elevation: 10.0,
-                                child: new Container(
-                                  width: 350.0,
-                                  height: 400.0,
-                                  color: Color.fromRGBO(26, 188, 156, 1.0),
-                                  child: new Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                          30.0, 70.0, 30.0, 70.0),
-                                      child: formToFill),
+        return Scaffold(
+            body: Stack(
+            children: <Widget>[
+              new Container(
+                width: double.infinity,
+                child: new Material(
+                    color: Color.fromRGBO(236, 240, 241, 1.0),
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Container(
+                            padding: EdgeInsets.all(0.0),
+                            child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Card(
+                                  elevation: 10.0,
+                                  child: new Container(
+                                    width: 350.0,
+                                    height: 350.0,
+                                    color: Color.fromRGBO(26, 188, 156, 1.0),
+                                    child: new Padding(
+                                        padding: EdgeInsets.fromLTRB(
+                                            30.0, 70.0, 30.0, 70.0),
+                                        child: formToFill),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )),
-                      new MaterialButton(
-                        child: new Text(
-                          "Click here to Register",
-                          style: new TextStyle(color: Colors.blueAccent),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                              new MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new AskName()));
-                        },
-                      )
-                    ],
-                  )),
-            ),
-            (isLoading) ? IsLoading() : new Container(),
+                              ],
+                            )),
+                        new MaterialButton(
+                          child: new Text(
+                            "Click here to Register",
+                            style: new TextStyle(color: Colors.blueAccent),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                                new MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        new AskName()));
+                          },
+                        )
+                      ],
+                    )),
+              ),
+              (isLoading) ? IsLoading() : new Container(),
     
-            (gotoScore) ? LoggedIn((){
-              Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext build)=>new SeeLeaders(list)));
-            }): new Container()
+              (gotoScore) ? LoggedIn((){
+                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext build)=>new SeeLeaders(list)));
+              }): new Container()
       ],
-    );
+    ),
+        );
   }
 }
