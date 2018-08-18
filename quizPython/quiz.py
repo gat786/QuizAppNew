@@ -1,3 +1,12 @@
+#this python is used to initialize the database for the api which is to be used with this application and upon calling different functions of
+#this python file all the necessary things get initialized automatically you just need to enter your database details in the mentioned line
+#and all the rest is done by this script
+
+#Author - Ganesh Tiwari
+#Year - 2018
+#Month - August
+#Date - 18
+
 import mysql.connector
 import requests
 import json
@@ -6,18 +15,23 @@ import urllib
 import urllib.parse as urlparse
 from urllib.parse import urlencode
 
+#this is from where the questions are being fetched
 url1="https://opentdb.com/api.php?"
 
 
+#initialize the connection 
+#here is where you are going to write your database details so as to make the api work correctly
+mydb=mysql.connector.connect(host="EnterHostName",user="UserName",passwd="Password")
 
-mydb=mysql.connector.connect(host="159.89.161.122",user="ganesh",passwd="hotMAIL123@")
-#mydb=mysql.connector.connect(host="databases.000webhost.com",user="id5776939_ganesht049",passwd="hotMAIL123@")
+#gets the data from open trivia database
 def getDataFromUrl(category, difficulty , amount , typeQuestions):
     dataUrl=url1+"amount="+amount+"&category="+category+"&difficulty="+difficulty+"&type="+typeQuestions
     print(dataUrl)
     data=requests.get(dataUrl).json()
     return data
 
+
+#creates tables
 def createOtherTables():
     mycursor=mydb.cursor()
     mycursor.execute("use trivia_db;")
@@ -33,6 +47,7 @@ def getDataFromUrlND(category, amount , typeQuestions):
     data=requests.get(dataUrl).json()
     return data
 
+#parsing of json is done here
 def parseJsonToList(data,typeData):
     listReturn=[]
     results=data["results"]
@@ -158,13 +173,11 @@ def saveBoolean():
     saveDataToDatabase(getDataFromUrlND("17","31",typeData),dbname,"science_"+typeData,typeData)
     saveDataToDatabase(getDataFromUrlND("22","37",typeData),dbname,"geography_"+typeData,typeData)
     saveDataToDatabase(getDataFromUrlND("23","37",typeData),dbname,"history_"+typeData,typeData)
-    #saveDataToDatabase(getDataFromUrlND("20","12",typeData),dbname,"mythology_"+typeData,typeData)
+    saveDataToDatabase(getDataFromUrlND("20","12",typeData),dbname,"mythology_"+typeData,typeData)
     saveDataToDatabase(getDataFromUrlND("11","26",typeData),dbname,"films_"+typeData,typeData)
     saveDataToDatabase(getDataFromUrlND("21","11",typeData),dbname,"sports_"+typeData,typeData)
     saveDataToDatabase(getDataFromUrlND("18","32",typeData),dbname,"computers_"+typeData,typeData)
 
-#saveBoolean()
-#saveMultiple()
-#typeData="boolean"
-#saveDataToDatabase(getDataFromUrlND("20","9",typeData),dbname,"mythology_"+typeData,typeData)
+saveBoolean()
+saveMultiple()
 createOtherTables()
