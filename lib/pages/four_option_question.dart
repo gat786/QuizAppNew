@@ -11,11 +11,15 @@ import 'package:quiz/util/question_model.dart';
 import 'package:quiz/util/quiz_for_multiple.dart';
 import 'package:quiz/util/save_audio.dart';
 import 'score_page.dart';
+import 'package:quiz/util/data_classes.dart';
+import 'package:quiz/web_service/get_data.dart';
+import 'package:quiz/web_service/parse_data.dart';
 
 class FourQuestion extends StatefulWidget{
   final int category;
+  final String cateName;
 
-  FourQuestion(this.category){
+  FourQuestion(this.category,this.cateName){
     saveFile();
   }
 
@@ -33,8 +37,9 @@ class FourQuestionState extends State<FourQuestion> {
     bool overlayVisible=false;
     List<QuestionModel> required=new List();
     QuizMultiple model;
+    QuizMultipleNew modelNew;
     bool result;
-    QuestionModel currentQuestion;
+    MultipleAnswer currentQuestion;
     var unescape=new HtmlUnescape();
     int questionNumber=1;
     int counter=0;
@@ -64,39 +69,13 @@ class FourQuestionState extends State<FourQuestion> {
   }
 
 
+    
+    
+    
 
-
-    Map<String,dynamic> data;
-    Future<String> getData(String url) async {
-    var response = await http.get(
-      Uri.encodeFull(url),
-      headers: {
-        "Accept": "application/json"
-        }
-      );
-      data = json.decode(response.body);
-      print(data);
-      createQuestionsList(data["results"]);
-      
-      return "Success!";
-    }
-    
-    
-    
-    void createQuestionsList(List<dynamic> dataList){
-      print(dataList.length);
-      for (var a in dataList){
-        print(a["question"]);
-        String question=a["question"].toString();
-        List options=a["incorrect_answers"];
-        options.add(a["correct_answer"]);
-        options.shuffle();
-        String answer=a["correct_answer"].toString();
-        QuestionModel model=new QuestionModel(question, answer, options);
-        required.add(model);
-        }
-      model=new QuizMultiple(required);
-      changeState();
+    void createQuestionsListNew(List<MultipleAnswer> questions){
+     modelNew = new QuizMultipleNew(questions);
+     changeStateNew(modelNew);
     }
 
 
@@ -104,41 +83,53 @@ class FourQuestionState extends State<FourQuestion> {
     void initState() {
       // TODO: implement initState
       super.initState();
-      
-      String first="https://opentdb.com/api.php?amount=10&category=";
-      String second="&difficulty=easy&type=multiple";
-      getData(first+widget.category.toString()+second);
-    }
     
-    void changeState(){
+      getDataApi("multiple", widget.cateName).then((var value){
+        value=getParsedMultipleAnswer(value);
+        List<MultipleAnswer> _questions = value;
+        modelNew=new QuizMultipleNew(_questions);
+        changeStateNew(modelNew);
+      });
+    }
+
+    void changeStateNew(QuizMultipleNew questionModel){
       isLoading=false;
       
 
-      currentQuestion=model.question;
+      currentQuestion=questionModel.question;
 
       questionText=unescape.convert(currentQuestion.question.toString());
 
       //print(currentQuestion.option);
 
-      option1=unescape.convert(  currentQuestion.option[0].toString());
+      List options= new List();
+      options.add(currentQuestion.option1);
+      options.add(currentQuestion.option2);
+      options.add(currentQuestion.option3);
+      options.add(currentQuestion.answer);
+      options.shuffle();
 
-      option2=unescape.convert( currentQuestion.option[1].toString());
+      option1=unescape.convert(  options[0]);
 
-      option3=unescape.convert(  currentQuestion.option[2].toString());
+      option2=unescape.convert(  options[1]);
 
-      option4=unescape.convert(  currentQuestion.option[3].toString());
+      option3=unescape.convert(  options[2]);
+
+      option4=unescape.convert(  options[3]);
 
       answer=unescape.convert( currentQuestion.answer.toString());
 
-      questionNumber=model.currentQuestionNumber;
+      questionNumber=questionModel.currentQuestionNumber;
 
       this.setState((){overlayVisible=false;});
     }
+    
+    
 
     void handleAnswer(String userAnswer){
       counter=counter+1;
       result=(userAnswer==unescape.convert( currentQuestion.answer.toString()))?true:false;
-      model.answer(result);
+      modelNew.answer(result);
       playMusic(result);
       this.setState(()
       {
@@ -186,25 +177,32 @@ class FourQuestionState extends State<FourQuestion> {
                 ),
                 (overlayVisible)?new CorrectWrongOverlayMultiple(result, 
                 (){
-                  if (counter<model.lengthQuestions){
-                    currentQuestion=model.nextQuestion;
+                  if (counter<modelNew.lengthQuestions){
+                    currentQuestion=modelNew.nextQuestion;
                     questionText=unescape.convert(currentQuestion.question.toString());
 
-                    option1=unescape.convert(  currentQuestion.option[0].toString());
+                    List options= new List();
+                    options.add(currentQuestion.option1);
+                    options.add(currentQuestion.option2);
+                    options.add(currentQuestion.option3);
+                    options.add(currentQuestion.answer);
+                    options.shuffle();
 
-                    option2=unescape.convert( currentQuestion.option[1].toString());
+                    option1=unescape.convert(  options[0]);
 
-                    option3=unescape.convert(  currentQuestion.option[2].toString());
+                    option2=unescape.convert(  options[1]);
 
-                    option4=unescape.convert(  currentQuestion.option[3].toString());
+                    option3=unescape.convert(  options[2]);
+
+                    option4=unescape.convert(  options[3]);
 
                     answer=unescape.convert( currentQuestion.answer.toString());
                     answer=currentQuestion.answer;
-                    questionNumber=model.currentQuestionNumber;
+                    questionNumber=modelNew.currentQuestionNumber;
                     this.setState((){overlayVisible=false;});
                   }
                   else{
-                    Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext build)=>new ScorePage(model.score,model.lengthQuestions,widget.category.toString())));
+                    Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext build)=>new ScorePage(modelNew.score,modelNew.lengthQuestions,widget.category.toString())));
                   }
                 }, unescape.convert(answer.toString())
                 ):new Container(),

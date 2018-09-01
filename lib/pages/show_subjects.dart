@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz/ui/subject_button.dart';
 import 'four_option_question.dart';
 import 'quiz_page.dart';
+import 'package:quiz/util/data_classes.dart';
 
 
 class SubjectShow extends StatelessWidget{
@@ -13,11 +14,14 @@ class SubjectShow extends StatelessWidget{
 
 
 
-  void gotoFourQuestion(int category,BuildContext context){
+  void gotoFourQuestion(int categoryNumber,BuildContext context){
+        Category category = new Category();
         if (questionsType=="mcq")
-          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext build) => new FourQuestion(category)));
+          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext build) => new FourQuestion(categoryNumber,category.getCategoryName(categoryNumber))));
         else 
-          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext build) => new Quizpage(category.toString())));
+          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext build) => new Quizpage(categoryNumber.toString())));
+        
+        print("Category selected is "+category.getCategoryName(categoryNumber));
       }
 
 

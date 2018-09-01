@@ -62,3 +62,22 @@ class ScoreModel{
       'score': score,
     };
 }
+
+
+class Category{
+  Map<int,String> _data=new Map<int,String>();
+
+  Category(){
+    _data[17]="science";
+    _data[22]="geography";
+    _data[23]="history";
+    _data[20]="mythology";
+    _data[11]="films";
+    _data[21]="sports";
+    _data[18]="computers";
+  }
+
+  String getCategoryName(int categoryNumber){
+    return _data[categoryNumber];
+  }
+}

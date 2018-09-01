@@ -77,9 +77,9 @@ class LoginPageState extends State<LoginPage> {
                         getScoreFromDatabase(userName, scoreToBeUploaded)
                             .then((var data) {
                               saveScoreUploaded(totalScore);
-                              list=getParsedScore(data);
                           this.setState(() {
                             isLoading = false;
+                            list=getParsedScore(data);
                             gotoScore = true;
                           });
                         });
@@ -191,7 +191,7 @@ class LoginPageState extends State<LoginPage> {
                       getScore().then((int score){
                         getScoreFromDatabase(_usernameController.text, score).then((var data){
                           list=getParsedScore(data);
-                          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new SeeLeaders(data)));
+                          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new SeeLeaders(list)));
                         });
                       });
                     }else{

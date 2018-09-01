@@ -3,7 +3,7 @@ import 'package:quiz/util/data_classes.dart';
 
 class SeeLeaders extends StatefulWidget {
   final score = 20;
-  final List<dynamic> data;
+  final List<ScoreModel> data;
   SeeLeaders(this.data);
   @override
   SeeLeadersState createState() {
