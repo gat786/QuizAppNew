@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:quiz/ui/ask_choices_button.dart';
-import 'package:quiz/util/shared_preference.dart';
+import 'package:quiz/util/shared_preferences.dart';
 import 'show_subjects.dart';
 
 class AskChoices extends StatelessWidget{

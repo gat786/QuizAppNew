@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:quiz/ui/settings_image_clipped.dart';
-import 'package:quiz/util/shared_preference.dart';
+import 'package:quiz/util/shared_preferences.dart';
 import 'package:quiz/util/save_audio.dart';
 
 

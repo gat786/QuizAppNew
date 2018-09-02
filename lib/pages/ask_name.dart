@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './login_page.dart';
 import '../ui/loading_ui.dart';
 import '../web_service/authenticate.dart';
-import 'package:quiz/util/shared_preference.dart';
+import 'package:quiz/util/shared_preferences.dart';
 
 var isLoading=false;
 class AskName extends StatefulWidget{

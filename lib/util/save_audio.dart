@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:audioplayer/audioplayer.dart';
-import 'shared_preference.dart';
+import 'shared_preferences.dart';
 
 
 Future<ByteData> loadAsset1() async {

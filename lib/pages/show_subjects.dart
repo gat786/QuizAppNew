@@ -19,7 +19,7 @@ class SubjectShow extends StatelessWidget{
         if (questionsType=="mcq")
           Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext build) => new FourQuestion(categoryNumber,category.getCategoryName(categoryNumber))));
         else 
-          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext build) => new Quizpage(categoryNumber.toString())));
+          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext build) => new Quizpage(categoryNumber.toString(),category.getCategoryName(categoryNumber))));
         
         print("Category selected is "+category.getCategoryName(categoryNumber));
       }

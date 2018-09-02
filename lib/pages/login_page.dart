@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:quiz/util/ensure_focus.dart';
 import 'ask_name.dart';
 import 'package:quiz/web_service/authenticate.dart';
-import 'package:quiz/util/shared_preference.dart';
+import 'package:quiz/util/shared_preferences.dart';
 import 'package:quiz/ui/loading_ui.dart';
 import 'package:quiz/web_service/parse_data.dart';
 import 'see_leaders.dart';

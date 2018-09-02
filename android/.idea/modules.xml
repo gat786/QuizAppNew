@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayer-0.5.0/android/audioplayer.iml" filepath="C:/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayer-0.5.0/android/audioplayer.iml" />
+      <module fileurl="file://C:/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-0.4.1/android/path_provider.iml" filepath="C:/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-0.4.1/android/path_provider.iml" />
+      <module fileurl="file://C:/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.4.2/android/shared_preferences.iml" filepath="C:/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.4.2/android/shared_preferences.iml" />
+      <module fileurl="file://C:/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-0.11.0/android/sqflite.iml" filepath="C:/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-0.11.0/android/sqflite.iml" />
+    </modules>
+  </component>
+</project>
