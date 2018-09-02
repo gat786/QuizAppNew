@@ -5,6 +5,7 @@ import '../web_service/authenticate.dart';
 import 'package:quiz/util/shared_preferences.dart';
 
 var isLoading=false;
+bool rememberDetails=true;
 class AskName extends StatefulWidget{
 
   AskName(){
@@ -29,6 +30,7 @@ class AskNameState extends State<AskName>{
       super.initState();
       
     }
+    
   @override
     Widget build(BuildContext context) {
       
@@ -36,10 +38,18 @@ class AskNameState extends State<AskName>{
       var labelColor=Color.fromRGBO(223, 249, 251, 1.0);
       // TODO: implement build
 
+      Widget checkBox = new CheckboxListTile(
+        title: new Text("Remember Me.",style: TextStyle(color: Colors.white),),
+        value: rememberDetails,
+        onChanged: ((bool value){
+          this.setState(()=>rememberDetails=value);
+        }),
+      );
+
       var formToFill=new Form(
         key: _formKey,
-            child: new ListView(
-              
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
 
                 new TextFormField(
@@ -92,6 +102,8 @@ class AskNameState extends State<AskName>{
                   },
                 ),
 
+                checkBox,
+
                 Builder(
                   builder: (BuildContext context){
                     return new Container(
@@ -105,7 +117,8 @@ class AskNameState extends State<AskName>{
                       this.setState((){  isLoading=true;});
                       registerUser(_username.text, _email.text, _password.text).then((String result){
                         if (result=="true"){
-                          saveUserRegistrationDetails(_username.text, _password.text, _email.text);
+                          if (rememberDetails==true)
+                            saveUserRegistrationDetails(_username.text, _password.text, _email.text);
                           Scaffold.of(context).showSnackBar(SnackBar(content: new Text("Registeration Successfull Try Login"),));
                           this.setState((){  isLoading=false;});
                         }
@@ -160,10 +173,10 @@ class AskNameState extends State<AskName>{
                     child:  new Container(
                       
                       width: 350.0,
-                      height: 350.0,
+                      height: 440.0,
                       color: Color.fromRGBO(26, 188, 156, 1.0),
                       child: new Padding(
-                        padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 30.0),
+                        padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
                         child: formToFill
                       ),
                     ),

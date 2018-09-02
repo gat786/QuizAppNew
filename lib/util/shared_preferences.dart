@@ -102,6 +102,14 @@ Future<Map<String,String>> getUserDetails() async {
   return details;
 }
 
+void removeDetails() async {
+  SharedPreferences prefs=await SharedPreferences.getInstance();
+  prefs.remove("username");
+  prefs.remove("password");
+  prefs.remove("email");
+}
+
+
 Future<bool> doesUserExist() async {
   SharedPreferences prefs=await SharedPreferences.getInstance();
   if (prefs.getString("username")==null)

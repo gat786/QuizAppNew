@@ -127,8 +127,7 @@ String questionText;
   void handleAnswer(bool userAnswer){
     counter=counter+1;
     bool corrAnswer;
-    (singleAnswerQuestion.answer=="true")?corrAnswer=true:corrAnswer=false;
-
+    (singleAnswerQuestion.answer=="True")?corrAnswer=true:corrAnswer=false;
     if (userAnswer==corrAnswer){
       result=true;
     }

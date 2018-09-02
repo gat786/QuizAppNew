@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz/ui/options_card.dart';
 import 'personal_scores.dart';
 import 'help_us.dart';
+import 'package:quiz/util/shared_preferences.dart';
 
 import 'settings_page.dart';
 import 'login_page.dart';
@@ -56,8 +57,30 @@ class OptionsState extends State<Options>{
                     print("You clicked to help us");
                     Navigator.of(context).push(new MaterialPageRoute(builder:(BuildContext context)=>new HelpUs()));
                 }
-                )
-
+                ),
+                
+                Builder(
+                  builder: (BuildContext context){
+                    return new OptionsCard(Icons.remove, "Remove Login Details of User",
+                      (){
+                        print("You Clicked Remove Details");
+                        getUserDetails().then((var value){
+                          if (value["username"]!=null){
+                            removeDetails();
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: new Text("User Details were Removed"),
+                            ));
+                          }
+                          else{
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: new Text("No user data was Found.!"),
+                            ));
+                          }
+                        });
+                      }
+                      );
+                  },
+                ),
               ],
             ),
           ),

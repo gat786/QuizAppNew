@@ -15,7 +15,7 @@ import 'package:quiz/ui/logged_in.dart';
 import 'package:quiz/util/data_classes.dart';
 
 List<ScoreModel> list;
-
+bool rememberDetails=true;
 bool isLoading = false;
 bool gotoScore=false;
 class LoginPage extends StatefulWidget {
@@ -115,14 +115,14 @@ class LoginPageState extends State<LoginPage> {
       }
     });
   }
-
+  TextEditingController _usernameController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    TextEditingController _usernameController = new TextEditingController();
-    TextEditingController _passwordController = new TextEditingController();
+    
 
     var hintColor = Color.fromRGBO(199, 236, 238, 1.0);
     var labelColor = Color.fromRGBO(223, 249, 251, 1.0);
@@ -172,6 +172,15 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
 
+    
+    Widget checkBox = new CheckboxListTile(
+      title: new Text("Remember Me.",style: TextStyle(color: Colors.white),),
+      value: rememberDetails,
+      onChanged: ((bool value){
+        this.setState(()=>rememberDetails=value);
+      }),
+    );
+
     Widget buttonSaved = new Container(
       margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0),
       child: new RaisedButton(
@@ -184,10 +193,10 @@ class LoginPageState extends State<LoginPage> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             this.setState(()=>isLoading=true);
-            saveUserLoginDetails(
-                _usernameController.text, _passwordController.text).then((_){
-                  loginUser(_usernameController.text, _passwordController.text).then((String result){
+            loginUser(_usernameController.text, _passwordController.text).then((String result){
                     if (result=="true"){
+                      if(rememberDetails==true)
+                        saveUserLoginDetails(_usernameController.text, _passwordController.text);
                       getScore().then((int score){
                         getScoreFromDatabase(_usernameController.text, score).then((var data){
                           list=getParsedScore(data);
@@ -198,7 +207,7 @@ class LoginPageState extends State<LoginPage> {
                       Scaffold.of(context).showSnackBar(SnackBar(content: new Text("Login Failed"),));
                     }
                   });
-                });
+            
           }
         },
       ),
@@ -206,10 +215,12 @@ class LoginPageState extends State<LoginPage> {
 
     Widget formToFill = new Form(
       key: _formKey,
-      child: ListView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           userInput,
           passInput,
+          checkBox,
           buttonSaved,
         ],
       ),
@@ -235,11 +246,11 @@ class LoginPageState extends State<LoginPage> {
                                   elevation: 10.0,
                                   child: new Container(
                                     width: 350.0,
-                                    height: 350.0,
+                                    height: 355.0,
                                     color: Color.fromRGBO(26, 188, 156, 1.0),
                                     child: new Padding(
                                         padding: EdgeInsets.fromLTRB(
-                                            30.0, 70.0, 30.0, 70.0),
+                                            30.0, 30.0, 30.0, 30.0),
                                         child: formToFill),
                                   ),
                                 ),
