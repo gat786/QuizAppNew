@@ -21,7 +21,7 @@ url1="https://opentdb.com/api.php?"
 
 #initialize the connection 
 #here is where you are going to write your database details so as to make the api work correctly
-mydb=mysql.connector.connect(host="EnterHostName",user="UserName",passwd="Password")
+mydb=mysql.connector.connect(host="172.104.162.187",user="webxstud",passwd="0YaXs1xk35")
 
 #gets the data from open trivia database
 def getDataFromUrl(category, difficulty , amount , typeQuestions):

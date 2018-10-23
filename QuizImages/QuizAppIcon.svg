@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1536 2048" style="enable-background:new 0 0 1536 2048;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;stroke:#000000;stroke-width:24;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#000000;stroke-width:24;stroke-miterlimit:10;}
+	.st2{font-family:'MyriadPro-Regular';}
+	.st3{font-size:209.502px;}
+	.st4{font-size:60px;}
+	.st5{fill:none;stroke:#000000;stroke-width:10;stroke-miterlimit:10;}
+</style>
+<g id="XMLID_1_">
+	<circle id="XMLID_5_" class="st0" cx="654.9" cy="786.7" r="177.9"/>
+	<line id="XMLID_2_" class="st1" x1="536.3" y1="919.3" x2="390.9" y2="1069.3"/>
+	<text id="XMLID_3_" transform="matrix(1.5737 0 0 1 600.2091 852.7346)" class="st2 st3">?</text>
+</g>
+<text id="XMLID_4_" transform="matrix(1 0 0 1 600.2089 1069.2556)" class="st2 st4">Quiz</text>
+<path id="XMLID_6_" class="st5" d="M955.7,1150.7H335.5c-6.6,0-12-5.4-12-12v-583c0-6.6,5.4-12,12-12h620.2c6.6,0,12,5.4,12,12v583
+	C967.7,1145.3,962.3,1150.7,955.7,1150.7z"/>
+</svg>
